@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DC Comics Timeline - Interactive History</title>
+    <meta name="description" content="Explore the major events in DC Comics history through an interactive timeline powered by Wikipedia.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">DC Comics Timeline</h1>
+            <p class="subtitle">Explore the legendary events that shaped the DC Universe</p>
+            <p class="attribution">Data sourced from Wikipedia - <a href="https://en.wikipedia.org/wiki/DC_Comics" target="_blank">DC Comics Wikipedia</a></p>
+        </header>
+
+        <div class="controls">
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search events, characters, or years..." aria-label="Search timeline">
+                <button id="searchBtn" aria-label="Search">🔍</button>
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Events</button>
+                <button class="filter-btn" data-filter="publication">Publications</button>
+                <button class="filter-btn" data-filter="character">Characters</button>
+                <button class="filter-btn" data-filter="media">Media</button>
+            </div>
+        </div>
+
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p>Loading DC Comics history...</p>
+        </div>
+
+        <div id="error" class="error" style="display: none;">
+            <p>Unable to load timeline data. Please try again later.</p>
+        </div>
+
+        <div class="timeline-container">
+            <div id="timeline" class="timeline"></div>
+        </div>
+
+        <footer class="footer">
+            <p>
+                This timeline uses data from <a href="https://www.wikipedia.org" target="_blank">Wikipedia</a> under
+                <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank">CC BY-SA 3.0</a>.
+                All DC Comics characters and content are © DC Comics.
+            </p>
+        </footer>
+    </div>
+
+    <!-- Event Detail Modal -->
+    <div id="eventModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Close modal">&times;</button>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script src="timeline-data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
