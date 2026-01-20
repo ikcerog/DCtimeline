@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DC Comics Timeline - Interactive History</title>
-    <meta name="description" content="Explore the major events in DC Comics history through an interactive timeline powered by Wikipedia.">
+    <meta name="description" content="Explore the complete history of DC Comics through an interactive timeline powered by Wikipedia. Filter by era, character, writer, artist, and story arc.">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -15,16 +15,104 @@
             <p class="attribution">Data sourced from Wikipedia - <a href="https://en.wikipedia.org/wiki/DC_Comics" target="_blank">DC Comics Wikipedia</a></p>
         </header>
 
-        <div class="controls">
-            <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Search events, characters, or years..." aria-label="Search timeline">
-                <button id="searchBtn" aria-label="Search">🔍</button>
+        <!-- Statistics Dashboard -->
+        <div class="stats-dashboard" id="statsDashboard">
+            <div class="stat-card">
+                <div class="stat-number" id="totalEvents">0</div>
+                <div class="stat-label">Total Events</div>
             </div>
-            <div class="filter-buttons">
-                <button class="filter-btn active" data-filter="all">All Events</button>
-                <button class="filter-btn" data-filter="publication">Publications</button>
-                <button class="filter-btn" data-filter="character">Characters</button>
-                <button class="filter-btn" data-filter="media">Media</button>
+            <div class="stat-card">
+                <div class="stat-number" id="currentEra">All</div>
+                <div class="stat-label">Current Filter</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="publicDomainCount">0</div>
+                <div class="stat-label">Public Domain</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="yearSpan">85+</div>
+                <div class="stat-label">Years Covered</div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <!-- Search -->
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search events, characters, years, writers..." aria-label="Search timeline">
+                <button id="searchBtn" aria-label="Search">🔍</button>
+                <button id="clearBtn" class="clear-btn" aria-label="Clear search" style="display: none;">✕</button>
+            </div>
+
+            <!-- Category Filters -->
+            <div class="filter-section">
+                <h3 class="filter-heading">Category</h3>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter-type="category" data-filter="all">All Events</button>
+                    <button class="filter-btn" data-filter-type="category" data-filter="publication">📚 Publications</button>
+                    <button class="filter-btn" data-filter-type="category" data-filter="character">🦸 Characters</button>
+                    <button class="filter-btn" data-filter-type="category" data-filter="media">🎬 Media</button>
+                </div>
+            </div>
+
+            <!-- Era Filters -->
+            <div class="filter-section">
+                <h3 class="filter-heading">Era</h3>
+                <div class="era-filters" id="eraFilters">
+                    <button class="era-btn active" data-filter-type="era" data-filter="all">All Eras</button>
+                </div>
+            </div>
+
+            <!-- Advanced Filters -->
+            <div class="filter-section">
+                <h3 class="filter-heading">Advanced Filters <button class="toggle-btn" id="toggleAdvanced" aria-label="Toggle advanced filters">▼</button></h3>
+                <div class="advanced-filters" id="advancedFilters" style="display: none;">
+                    <div class="filter-row">
+                        <label for="characterFilter">Character:</label>
+                        <select id="characterFilter" class="filter-select">
+                            <option value="">All Characters</option>
+                        </select>
+                    </div>
+                    <div class="filter-row">
+                        <label for="writerFilter">Writer:</label>
+                        <select id="writerFilter" class="filter-select">
+                            <option value="">All Writers</option>
+                        </select>
+                    </div>
+                    <div class="filter-row">
+                        <label for="artistFilter">Artist:</label>
+                        <select id="artistFilter" class="filter-select">
+                            <option value="">All Artists</option>
+                        </select>
+                    </div>
+                    <div class="filter-row">
+                        <label for="storyArcFilter">Story Arc:</label>
+                        <select id="storyArcFilter" class="filter-select">
+                            <option value="">All Story Arcs</option>
+                        </select>
+                    </div>
+                    <div class="filter-row">
+                        <label for="publicDomainFilter">
+                            <input type="checkbox" id="publicDomainFilter">
+                            Public Domain Only
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sort Options -->
+            <div class="filter-section">
+                <h3 class="filter-heading">Sort By</h3>
+                <div class="sort-options">
+                    <button class="sort-btn active" data-sort="year-asc">📅 Year (Oldest First)</button>
+                    <button class="sort-btn" data-sort="year-desc">📅 Year (Newest First)</button>
+                </div>
+            </div>
+
+            <!-- Active Filters Display -->
+            <div id="activeFilters" class="active-filters" style="display: none;">
+                <h4>Active Filters:</h4>
+                <div id="activeFilterTags" class="filter-tags"></div>
+                <button id="clearAllFilters" class="clear-all-btn">Clear All Filters</button>
             </div>
         </div>
 
@@ -46,6 +134,9 @@
                 This timeline uses data from <a href="https://www.wikipedia.org" target="_blank">Wikipedia</a> under
                 <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank">CC BY-SA 3.0</a>.
                 All DC Comics characters and content are © DC Comics.
+            </p>
+            <p>
+                Built with ❤️ for comic book history. <a href="https://github.com" target="_blank">View on GitHub</a>
             </p>
         </footer>
     </div>

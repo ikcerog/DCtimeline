@@ -1,38 +1,168 @@
-// DC Comics Timeline Application
-// Uses Wikipedia REST API for copyright-compliant data sourcing
+// DC Comics Timeline Application - Enhanced Edition
+// Multi-dimensional filtering with era badges, creator credits, and advanced search
 
 class DCTimeline {
     constructor() {
         this.events = timelineEvents;
         this.filteredEvents = this.events;
-        this.currentFilter = 'all';
+        this.filters = {
+            category: 'all',
+            era: 'all',
+            character: '',
+            writer: '',
+            artist: '',
+            storyArc: '',
+            publicDomain: false,
+            search: ''
+        };
+        this.sortOrder = 'year-asc';
         this.wikiCache = new Map();
         this.init();
     }
 
     init() {
+        this.populateFilterOptions();
+        this.renderEraButtons();
+        this.updateStats();
+        this.applyFilters();
         this.renderTimeline();
         this.attachEventListeners();
         this.hideLoading();
         this.animateTimelineItems();
     }
 
-    attachEventListeners() {
-        // Filter buttons
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => this.handleFilter(e));
+    populateFilterOptions() {
+        // Populate character dropdown
+        const characterSelect = document.getElementById('characterFilter');
+        filterOptions.characters.forEach(char => {
+            const option = document.createElement('option');
+            option.value = char;
+            option.textContent = char;
+            characterSelect.appendChild(option);
         });
 
-        // Search functionality
+        // Populate writer dropdown
+        const writerSelect = document.getElementById('writerFilter');
+        filterOptions.writers.forEach(writer => {
+            const option = document.createElement('option');
+            option.value = writer;
+            option.textContent = writer;
+            writerSelect.appendChild(option);
+        });
+
+        // Populate artist dropdown
+        const artistSelect = document.getElementById('artistFilter');
+        filterOptions.artists.forEach(artist => {
+            const option = document.createElement('option');
+            option.value = artist;
+            option.textContent = artist;
+            artistSelect.appendChild(option);
+        });
+
+        // Populate story arc dropdown
+        const storyArcSelect = document.getElementById('storyArcFilter');
+        filterOptions.storyArcs.forEach(arc => {
+            const option = document.createElement('option');
+            option.value = arc;
+            option.textContent = arc;
+            storyArcSelect.appendChild(option);
+        });
+    }
+
+    renderEraButtons() {
+        const eraFilters = document.getElementById('eraFilters');
+        const allButton = eraFilters.querySelector('[data-filter="all"]');
+
+        Object.entries(eras).forEach(([key, era]) => {
+            const button = document.createElement('button');
+            button.className = 'era-btn';
+            button.dataset.filterType = 'era';
+            button.dataset.filter = key;
+            button.innerHTML = `
+                <span class="era-badge" style="background: ${era.color}"></span>
+                ${era.name}
+            `;
+            eraFilters.appendChild(button);
+        });
+    }
+
+    attachEventListeners() {
+        // Category filters
+        document.querySelectorAll('[data-filter-type="category"]').forEach(btn => {
+            btn.addEventListener('click', (e) => this.handleCategoryFilter(e));
+        });
+
+        // Era filters
+        document.querySelectorAll('[data-filter-type="era"]').forEach(btn => {
+            btn.addEventListener('click', (e) => this.handleEraFilter(e));
+        });
+
+        // Search
         const searchInput = document.getElementById('searchInput');
         const searchBtn = document.getElementById('searchBtn');
+        const clearBtn = document.getElementById('clearBtn');
 
         searchBtn.addEventListener('click', () => this.handleSearch());
         searchInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') this.handleSearch();
         });
         searchInput.addEventListener('input', (e) => {
-            if (e.target.value === '') this.handleSearch();
+            if (e.target.value === '') {
+                this.filters.search = '';
+                clearBtn.style.display = 'none';
+                this.applyFilters();
+            } else {
+                clearBtn.style.display = 'block';
+            }
+        });
+        clearBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            this.filters.search = '';
+            clearBtn.style.display = 'none';
+            this.applyFilters();
+        });
+
+        // Advanced filters
+        document.getElementById('toggleAdvanced').addEventListener('click', () => {
+            const advancedFilters = document.getElementById('advancedFilters');
+            const isHidden = advancedFilters.style.display === 'none';
+            advancedFilters.style.display = isHidden ? 'block' : 'none';
+            document.getElementById('toggleAdvanced').textContent = isHidden ? '▲' : '▼';
+        });
+
+        document.getElementById('characterFilter').addEventListener('change', (e) => {
+            this.filters.character = e.target.value;
+            this.applyFilters();
+        });
+
+        document.getElementById('writerFilter').addEventListener('change', (e) => {
+            this.filters.writer = e.target.value;
+            this.applyFilters();
+        });
+
+        document.getElementById('artistFilter').addEventListener('change', (e) => {
+            this.filters.artist = e.target.value;
+            this.applyFilters();
+        });
+
+        document.getElementById('storyArcFilter').addEventListener('change', (e) => {
+            this.filters.storyArc = e.target.value;
+            this.applyFilters();
+        });
+
+        document.getElementById('publicDomainFilter').addEventListener('change', (e) => {
+            this.filters.publicDomain = e.target.checked;
+            this.applyFilters();
+        });
+
+        // Sort options
+        document.querySelectorAll('.sort-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => this.handleSort(e));
+        });
+
+        // Clear all filters
+        document.getElementById('clearAllFilters').addEventListener('click', () => {
+            this.resetFilters();
         });
 
         // Modal close
@@ -49,42 +179,254 @@ class DCTimeline {
         });
     }
 
-    handleFilter(e) {
+    handleCategoryFilter(e) {
         const filter = e.target.dataset.filter;
-        this.currentFilter = filter;
+        this.filters.category = filter;
 
-        // Update active button
-        document.querySelectorAll('.filter-btn').forEach(btn => {
+        document.querySelectorAll('[data-filter-type="category"]').forEach(btn => {
             btn.classList.remove('active');
         });
         e.target.classList.add('active');
 
-        // Filter events
-        if (filter === 'all') {
-            this.filteredEvents = this.events;
-        } else {
-            this.filteredEvents = this.events.filter(event => event.category === filter);
-        }
+        this.applyFilters();
+    }
 
-        this.renderTimeline();
-        this.animateTimelineItems();
+    handleEraFilter(e) {
+        const filter = e.target.dataset.filter;
+        this.filters.era = filter;
+
+        document.querySelectorAll('[data-filter-type="era"]').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        e.target.classList.add('active');
+
+        this.applyFilters();
     }
 
     handleSearch() {
         const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+        this.filters.search = searchTerm;
+        this.applyFilters();
+    }
 
-        if (searchTerm === '') {
-            this.filteredEvents = this.events;
-        } else {
-            this.filteredEvents = this.events.filter(event => {
-                return event.title.toLowerCase().includes(searchTerm) ||
-                       event.description.toLowerCase().includes(searchTerm) ||
-                       event.year.toString().includes(searchTerm);
+    handleSort(e) {
+        this.sortOrder = e.target.dataset.sort;
+
+        document.querySelectorAll('.sort-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        e.target.classList.add('active');
+
+        this.sortFilteredEvents();
+        this.renderTimeline();
+        this.animateTimelineItems();
+    }
+
+    applyFilters() {
+        let filtered = this.events;
+
+        // Category filter
+        if (this.filters.category !== 'all') {
+            filtered = filtered.filter(event => event.category === this.filters.category);
+        }
+
+        // Era filter
+        if (this.filters.era !== 'all') {
+            filtered = filtered.filter(event => event.era === this.filters.era);
+        }
+
+        // Character filter
+        if (this.filters.character) {
+            filtered = filtered.filter(event =>
+                event.characters && event.characters.includes(this.filters.character)
+            );
+        }
+
+        // Writer filter
+        if (this.filters.writer) {
+            filtered = filtered.filter(event =>
+                event.writers && event.writers.includes(this.filters.writer)
+            );
+        }
+
+        // Artist filter
+        if (this.filters.artist) {
+            filtered = filtered.filter(event =>
+                event.artists && event.artists.includes(this.filters.artist)
+            );
+        }
+
+        // Story arc filter
+        if (this.filters.storyArc) {
+            filtered = filtered.filter(event => event.storyArc === this.filters.storyArc);
+        }
+
+        // Public domain filter
+        if (this.filters.publicDomain) {
+            filtered = filtered.filter(event => event.isPublicDomain === true);
+        }
+
+        // Search filter
+        if (this.filters.search) {
+            filtered = filtered.filter(event => {
+                const searchStr = this.filters.search.toLowerCase();
+                return event.title.toLowerCase().includes(searchStr) ||
+                       event.description.toLowerCase().includes(searchStr) ||
+                       event.year.toString().includes(searchStr) ||
+                       (event.characters && event.characters.some(c => c.toLowerCase().includes(searchStr))) ||
+                       (event.writers && event.writers.some(w => w.toLowerCase().includes(searchStr))) ||
+                       (event.artists && event.artists.some(a => a.toLowerCase().includes(searchStr)));
             });
         }
 
+        this.filteredEvents = filtered;
+        this.sortFilteredEvents();
+        this.updateStats();
+        this.updateActiveFilters();
         this.renderTimeline();
         this.animateTimelineItems();
+    }
+
+    sortFilteredEvents() {
+        if (this.sortOrder === 'year-asc') {
+            this.filteredEvents.sort((a, b) => a.year - b.year);
+        } else if (this.sortOrder === 'year-desc') {
+            this.filteredEvents.sort((a, b) => b.year - a.year);
+        }
+    }
+
+    updateStats() {
+        document.getElementById('totalEvents').textContent = this.filteredEvents.length;
+
+        // Current filter display
+        let currentFilter = 'All';
+        if (this.filters.era !== 'all') {
+            currentFilter = eras[this.filters.era].name;
+        } else if (this.filters.category !== 'all') {
+            currentFilter = this.filters.category.charAt(0).toUpperCase() + this.filters.category.slice(1);
+        }
+        document.getElementById('currentEra').textContent = currentFilter;
+
+        // Public domain count
+        const publicDomainCount = this.filteredEvents.filter(e => e.isPublicDomain).length;
+        document.getElementById('publicDomainCount').textContent = publicDomainCount;
+
+        // Year span
+        if (this.filteredEvents.length > 0) {
+            const years = this.filteredEvents.map(e => e.year);
+            const minYear = Math.min(...years);
+            const maxYear = Math.max(...years);
+            const span = maxYear - minYear;
+            document.getElementById('yearSpan').textContent = `${span}+ yrs`;
+        }
+    }
+
+    updateActiveFilters() {
+        const activeFilterTags = document.getElementById('activeFilterTags');
+        const activeFiltersSection = document.getElementById('activeFilters');
+        const tags = [];
+
+        if (this.filters.category !== 'all') {
+            tags.push({ type: 'category', value: this.filters.category });
+        }
+        if (this.filters.era !== 'all') {
+            tags.push({ type: 'era', value: eras[this.filters.era].name });
+        }
+        if (this.filters.character) {
+            tags.push({ type: 'character', value: this.filters.character });
+        }
+        if (this.filters.writer) {
+            tags.push({ type: 'writer', value: this.filters.writer });
+        }
+        if (this.filters.artist) {
+            tags.push({ type: 'artist', value: this.filters.artist });
+        }
+        if (this.filters.storyArc) {
+            tags.push({ type: 'storyArc', value: this.filters.storyArc });
+        }
+        if (this.filters.publicDomain) {
+            tags.push({ type: 'publicDomain', value: 'Public Domain' });
+        }
+        if (this.filters.search) {
+            tags.push({ type: 'search', value: `"${this.filters.search}"` });
+        }
+
+        if (tags.length > 0) {
+            activeFiltersSection.style.display = 'block';
+            activeFilterTags.innerHTML = tags.map(tag => `
+                <span class="filter-tag" data-type="${tag.type}">
+                    ${tag.value}
+                    <button onclick="dcTimeline.removeFilter('${tag.type}')" aria-label="Remove filter">×</button>
+                </span>
+            `).join('');
+        } else {
+            activeFiltersSection.style.display = 'none';
+        }
+    }
+
+    removeFilter(type) {
+        switch(type) {
+            case 'category':
+                this.filters.category = 'all';
+                document.querySelector('[data-filter-type="category"][data-filter="all"]').click();
+                break;
+            case 'era':
+                this.filters.era = 'all';
+                document.querySelector('[data-filter-type="era"][data-filter="all"]').click();
+                break;
+            case 'character':
+                this.filters.character = '';
+                document.getElementById('characterFilter').value = '';
+                break;
+            case 'writer':
+                this.filters.writer = '';
+                document.getElementById('writerFilter').value = '';
+                break;
+            case 'artist':
+                this.filters.artist = '';
+                document.getElementById('artistFilter').value = '';
+                break;
+            case 'storyArc':
+                this.filters.storyArc = '';
+                document.getElementById('storyArcFilter').value = '';
+                break;
+            case 'publicDomain':
+                this.filters.publicDomain = false;
+                document.getElementById('publicDomainFilter').checked = false;
+                break;
+            case 'search':
+                this.filters.search = '';
+                document.getElementById('searchInput').value = '';
+                document.getElementById('clearBtn').style.display = 'none';
+                break;
+        }
+        this.applyFilters();
+    }
+
+    resetFilters() {
+        this.filters = {
+            category: 'all',
+            era: 'all',
+            character: '',
+            writer: '',
+            artist: '',
+            storyArc: '',
+            publicDomain: false,
+            search: ''
+        };
+
+        // Reset UI
+        document.querySelector('[data-filter-type="category"][data-filter="all"]').click();
+        document.querySelector('[data-filter-type="era"][data-filter="all"]').click();
+        document.getElementById('characterFilter').value = '';
+        document.getElementById('writerFilter').value = '';
+        document.getElementById('artistFilter').value = '';
+        document.getElementById('storyArcFilter').value = '';
+        document.getElementById('publicDomainFilter').checked = false;
+        document.getElementById('searchInput').value = '';
+        document.getElementById('clearBtn').style.display = 'none';
+
+        this.applyFilters();
     }
 
     renderTimeline() {
@@ -93,26 +435,52 @@ class DCTimeline {
         if (this.filteredEvents.length === 0) {
             timeline.innerHTML = `
                 <div class="no-results">
-                    <p>No events found matching your criteria.</p>
+                    <h3>No events found</h3>
+                    <p>Try adjusting your filters or search terms.</p>
                 </div>
             `;
             return;
         }
 
-        timeline.innerHTML = this.filteredEvents.map((event, index) => `
-            <div class="timeline-item" style="animation-delay: ${index * 0.1}s" data-index="${index}">
-                <div class="timeline-year">${event.year}</div>
-                <div class="timeline-dot"></div>
-                <div class="timeline-content" onclick="dcTimeline.showEventDetail(${index})">
-                    <div class="event-category">${this.formatCategory(event.category)}</div>
-                    <h3 class="event-title">${event.title}</h3>
-                    <p class="event-description">${event.shortDescription}</p>
-                    <a href="#" class="event-link" onclick="event.preventDefault();">
-                        Learn more from Wikipedia →
-                    </a>
+        timeline.innerHTML = this.filteredEvents.map((event, index) => {
+            const eraData = eras[event.era];
+            const publicDomainBadge = event.isPublicDomain ?
+                '<span class="public-domain-badge" title="Public Domain">🔓 Public Domain</span>' : '';
+
+            return `
+                <div class="timeline-item" style="animation-delay: ${index * 0.05}s" data-index="${index}">
+                    <div class="timeline-year">${event.year}</div>
+                    <div class="timeline-dot" style="background: ${eraData.color}"></div>
+                    <div class="timeline-content" onclick="dcTimeline.showEventDetail(${index})">
+                        <div class="event-header">
+                            <span class="era-badge-inline" style="background: ${eraData.color}">${eraData.name}</span>
+                            <span class="event-category-badge">${this.formatCategory(event.category)}</span>
+                            ${publicDomainBadge}
+                        </div>
+                        <h3 class="event-title">${event.title}</h3>
+                        <p class="event-description">${event.shortDescription}</p>
+                        ${event.characters && event.characters.length > 0 ? `
+                            <div class="event-metadata">
+                                <strong>Characters:</strong> ${event.characters.slice(0, 3).join(', ')}${event.characters.length > 3 ? '...' : ''}
+                            </div>
+                        ` : ''}
+                        ${event.writers && event.writers.length > 0 && event.writers[0] !== 'Various' ? `
+                            <div class="event-metadata">
+                                <strong>Writer${event.writers.length > 1 ? 's' : ''}:</strong> ${event.writers.slice(0, 2).join(', ')}${event.writers.length > 2 ? '...' : ''}
+                            </div>
+                        ` : ''}
+                        ${event.storyArc ? `
+                            <div class="event-metadata">
+                                <strong>Story Arc:</strong> ${event.storyArc}
+                            </div>
+                        ` : ''}
+                        <a href="#" class="event-link" onclick="event.preventDefault();">
+                            Learn more from Wikipedia →
+                        </a>
+                    </div>
                 </div>
-            </div>
-        `).join('');
+            `;
+        }).join('');
     }
 
     formatCategory(category) {
@@ -128,6 +496,7 @@ class DCTimeline {
         const event = this.filteredEvents[index];
         const modal = document.getElementById('eventModal');
         const modalBody = document.getElementById('modalBody');
+        const eraData = eras[event.era];
 
         // Show modal with loading state
         modal.style.display = 'flex';
@@ -145,18 +514,59 @@ class DCTimeline {
                 <h2>${event.title}</h2>
                 <div class="event-meta">
                     <span class="event-year-badge">${event.year}</span>
+                    <span class="era-badge-modal" style="background: ${eraData.color}; color: ${eraData.color === '#FFD700' || eraData.color === '#C0C0C0' ? '#000' : '#fff'}">
+                        ${eraData.name}
+                    </span>
                     <span class="event-category">${this.formatCategory(event.category)}</span>
+                    ${event.isPublicDomain ? '<span class="public-domain-badge">🔓 Public Domain</span>' : ''}
                 </div>
+
                 <div class="event-full-description">
                     <p>${event.description}</p>
                 </div>
+
+                ${event.characters && event.characters.length > 0 ? `
+                    <div class="metadata-section">
+                        <h3>Characters</h3>
+                        <div class="metadata-tags">
+                            ${event.characters.map(char => `<span class="metadata-tag">${char}</span>`).join('')}
+                        </div>
+                    </div>
+                ` : ''}
+
+                ${event.writers && event.writers.length > 0 && event.writers[0] !== 'Various' ? `
+                    <div class="metadata-section">
+                        <h3>Writer${event.writers.length > 1 ? 's' : ''}</h3>
+                        <div class="metadata-tags">
+                            ${event.writers.map(writer => `<span class="metadata-tag">✍️ ${writer}</span>`).join('')}
+                        </div>
+                    </div>
+                ` : ''}
+
+                ${event.artists && event.artists.length > 0 && event.artists[0] !== 'Various' ? `
+                    <div class="metadata-section">
+                        <h3>Artist${event.artists.length > 1 ? 's' : ''}</h3>
+                        <div class="metadata-tags">
+                            ${event.artists.map(artist => `<span class="metadata-tag">🎨 ${artist}</span>`).join('')}
+                        </div>
+                    </div>
+                ` : ''}
+
+                ${event.storyArc ? `
+                    <div class="metadata-section">
+                        <h3>Story Arc</h3>
+                        <div class="story-arc-badge">${event.storyArc}</div>
+                    </div>
+                ` : ''}
+
                 <div class="wiki-content">
                     <h3>From Wikipedia:</h3>
                     <p>${wikiData.extract}</p>
                     ${wikiData.thumbnail ? `
-                        <img src="${wikiData.thumbnail}" alt="${event.title}" class="wiki-image">
+                        <img src="${wikiData.thumbnail}" alt="${event.title}" class="wiki-image" loading="lazy">
                     ` : ''}
                 </div>
+
                 <div class="modal-links">
                     <a href="https://en.wikipedia.org/wiki/${event.wikipediaTitle}"
                        target="_blank"
@@ -165,73 +575,6 @@ class DCTimeline {
                         Read full Wikipedia article →
                     </a>
                 </div>
-                <style>
-                    .event-meta {
-                        display: flex;
-                        gap: 1rem;
-                        margin: 1rem 0;
-                        flex-wrap: wrap;
-                    }
-                    .event-year-badge {
-                        background: linear-gradient(135deg, var(--accent-blue), var(--accent-red));
-                        color: white;
-                        padding: 0.5rem 1rem;
-                        border-radius: 50px;
-                        font-weight: 700;
-                    }
-                    .event-full-description {
-                        margin: 1.5rem 0;
-                        padding: 1.5rem;
-                        background: var(--bg-card);
-                        border-left: 4px solid var(--accent-blue);
-                        border-radius: 8px;
-                    }
-                    .wiki-content {
-                        margin-top: 2rem;
-                        padding-top: 2rem;
-                        border-top: 1px solid var(--border-color);
-                    }
-                    .wiki-content h3 {
-                        color: var(--accent-blue);
-                        margin-bottom: 1rem;
-                    }
-                    .wiki-content p {
-                        line-height: 1.8;
-                        color: var(--text-secondary);
-                    }
-                    .wiki-image {
-                        width: 100%;
-                        max-width: 400px;
-                        height: auto;
-                        margin: 1.5rem 0;
-                        border-radius: 8px;
-                        border: 1px solid var(--border-color);
-                    }
-                    .modal-links {
-                        margin-top: 2rem;
-                        padding-top: 1.5rem;
-                        border-top: 1px solid var(--border-color);
-                    }
-                    .wiki-link {
-                        display: inline-block;
-                        padding: 1rem 2rem;
-                        background: linear-gradient(135deg, var(--accent-blue), var(--accent-red));
-                        color: white;
-                        text-decoration: none;
-                        border-radius: 50px;
-                        font-weight: 600;
-                        transition: transform 0.2s, box-shadow 0.3s;
-                    }
-                    .wiki-link:hover {
-                        transform: translateY(-2px);
-                        box-shadow: var(--glow);
-                    }
-                    .no-results {
-                        text-align: center;
-                        padding: 3rem;
-                        color: var(--text-secondary);
-                    }
-                </style>
             `;
         } catch (error) {
             console.error('Error fetching Wikipedia data:', error);
@@ -239,6 +582,9 @@ class DCTimeline {
                 <h2>${event.title}</h2>
                 <div class="event-meta">
                     <span class="event-year-badge">${event.year}</span>
+                    <span class="era-badge-modal" style="background: ${eraData.color}">
+                        ${eraData.name}
+                    </span>
                     <span class="event-category">${this.formatCategory(event.category)}</span>
                 </div>
                 <div class="event-full-description">

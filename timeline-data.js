@@ -1,210 +1,966 @@
-// DC Comics Timeline Events
+// DC Comics Timeline Events - Comprehensive Edition
 // Data structure with Wikipedia article references for copyright-compliant sourcing
+// Includes era classification, creator credits, character associations, and story arcs
 
 const timelineEvents = [
+    // GOLDEN AGE (1938-1956)
     {
         year: 1934,
         title: "Major Malcolm Wheeler-Nicholson founds National Allied Publications",
         category: "publication",
+        era: "golden",
+        characters: [],
+        writers: ["Malcolm Wheeler-Nicholson"],
+        artists: [],
         description: "The company that would eventually become DC Comics is founded, marking the beginning of one of the most influential publishers in comic book history.",
         wikipediaTitle: "DC_Comics",
-        shortDescription: "Foundation of the company that became DC Comics"
+        shortDescription: "Foundation of the company that became DC Comics",
+        isPublicDomain: false
+    },
+    {
+        year: 1935,
+        title: "New Fun #1 - First DC comic published",
+        category: "publication",
+        era: "golden",
+        characters: [],
+        writers: ["Various"],
+        artists: ["Various"],
+        description: "National Allied Publications releases its first comic book, featuring original content rather than newspaper strip reprints.",
+        wikipediaTitle: "New_Fun",
+        shortDescription: "DC's very first comic book publication",
+        isPublicDomain: true
+    },
+    {
+        year: 1937,
+        title: "Detective Comics #1 debuts",
+        category: "publication",
+        era: "golden",
+        characters: [],
+        writers: ["Various"],
+        artists: ["Various"],
+        description: "The title that would give DC Comics its name launches, focusing on detective and mystery stories.",
+        wikipediaTitle: "Detective_Comics",
+        shortDescription: "Launch of the iconic Detective Comics series",
+        isPublicDomain: true
     },
     {
         year: 1938,
         title: "Superman debuts in Action Comics #1",
         category: "character",
-        description: "Created by Jerry Siegel and Joe Shuster, Superman's first appearance revolutionizes the comic book industry and creates the superhero genre.",
+        era: "golden",
+        characters: ["Superman", "Clark Kent", "Lois Lane"],
+        writers: ["Jerry Siegel"],
+        artists: ["Joe Shuster"],
+        description: "Created by Jerry Siegel and Joe Shuster, Superman's first appearance revolutionizes the comic book industry and creates the superhero genre. The character is the template for all superheroes to follow.",
         wikipediaTitle: "Superman",
-        shortDescription: "The first appearance of Superman, launching the superhero genre"
+        shortDescription: "The first appearance of Superman, launching the superhero genre",
+        isPublicDomain: false
     },
     {
         year: 1939,
         title: "Batman debuts in Detective Comics #27",
         category: "character",
-        description: "Created by Bob Kane and Bill Finger, Batman becomes one of the most iconic characters in popular culture.",
+        era: "golden",
+        characters: ["Batman", "Bruce Wayne"],
+        writers: ["Bill Finger"],
+        artists: ["Bob Kane"],
+        description: "Created by Bob Kane and Bill Finger (though Finger was uncredited for decades), Batman becomes one of the most iconic characters in popular culture. A darker, more grounded hero compared to Superman.",
         wikipediaTitle: "Batman",
-        shortDescription: "Batman's first appearance in Detective Comics"
+        shortDescription: "Batman's first appearance in Detective Comics",
+        isPublicDomain: false
     },
     {
         year: 1940,
-        title: "The Flash (Jay Garrick) debuts",
+        title: "Robin the Boy Wonder debuts",
         category: "character",
-        description: "The first Flash appears in Flash Comics #1, introducing the concept of super-speed to comics.",
+        era: "golden",
+        characters: ["Robin", "Dick Grayson", "Batman"],
+        writers: ["Bill Finger"],
+        artists: ["Bob Kane", "Jerry Robinson"],
+        description: "Dick Grayson becomes the first sidekick in comics, creating a template that would be followed for decades.",
+        wikipediaTitle: "Dick_Grayson",
+        shortDescription: "Introduction of Batman's sidekick Robin",
+        isPublicDomain: false
+    },
+    {
+        year: 1940,
+        title: "The Flash (Jay Garrick) debuts in Flash Comics #1",
+        category: "character",
+        era: "golden",
+        characters: ["Flash", "Jay Garrick"],
+        writers: ["Gardner Fox"],
+        artists: ["Harry Lampert"],
+        description: "The first Flash appears, introducing the concept of super-speed to comics. Jay Garrick becomes the Fastest Man Alive.",
         wikipediaTitle: "Flash_(Jay_Garrick)",
-        shortDescription: "Introduction of the first Flash"
+        shortDescription: "Introduction of the first Flash",
+        isPublicDomain: false
     },
     {
         year: 1940,
         title: "Green Lantern (Alan Scott) debuts",
         category: "character",
+        era: "golden",
+        characters: ["Green Lantern", "Alan Scott"],
+        writers: ["Bill Finger"],
+        artists: ["Martin Nodell"],
         description: "The original Green Lantern appears in All-American Comics #16, introducing the power ring concept.",
         wikipediaTitle: "Alan_Scott",
-        shortDescription: "First Green Lantern character introduced"
+        shortDescription: "First Green Lantern character introduced",
+        isPublicDomain: false
+    },
+    {
+        year: 1940,
+        title: "The Joker debuts in Batman #1",
+        category: "character",
+        era: "golden",
+        characters: ["Joker", "Batman"],
+        writers: ["Bill Finger"],
+        artists: ["Bob Kane", "Jerry Robinson"],
+        description: "Batman's greatest enemy makes his first appearance, becoming one of the most iconic villains in all of fiction.",
+        wikipediaTitle: "Joker_(character)",
+        shortDescription: "First appearance of the Joker",
+        isPublicDomain: false
     },
     {
         year: 1941,
         title: "Wonder Woman debuts in All Star Comics #8",
         category: "character",
-        description: "Created by William Moulton Marston, Wonder Woman becomes the most prominent female superhero in comics.",
+        era: "golden",
+        characters: ["Wonder Woman", "Diana Prince"],
+        writers: ["William Moulton Marston"],
+        artists: ["Harry G. Peter"],
+        description: "Created by William Moulton Marston and Harry G. Peter, Wonder Woman becomes the most prominent female superhero in comics and a feminist icon.",
         wikipediaTitle: "Wonder_Woman",
-        shortDescription: "Wonder Woman's first appearance"
+        shortDescription: "Wonder Woman's first appearance",
+        isPublicDomain: false
     },
+    {
+        year: 1941,
+        title: "Aquaman debuts in More Fun Comics #73",
+        category: "character",
+        era: "golden",
+        characters: ["Aquaman", "Arthur Curry"],
+        writers: ["Mort Weisinger"],
+        artists: ["Paul Norris"],
+        description: "The King of Atlantis makes his debut, bringing undersea adventures to DC Comics.",
+        wikipediaTitle: "Aquaman",
+        shortDescription: "Introduction of Aquaman",
+        isPublicDomain: false
+    },
+    {
+        year: 1941,
+        title: "Green Arrow debuts in More Fun Comics #73",
+        category: "character",
+        era: "golden",
+        characters: ["Green Arrow", "Oliver Queen"],
+        writers: ["Mort Weisinger"],
+        artists: ["George Papp"],
+        description: "The Emerald Archer makes his first appearance in the same issue as Aquaman.",
+        wikipediaTitle: "Green_Arrow",
+        shortDescription: "Introduction of Green Arrow",
+        isPublicDomain: false
+    },
+    {
+        year: 1941,
+        title: "Justice Society of America forms",
+        category: "character",
+        era: "golden",
+        characters: ["Flash", "Green Lantern", "Hawkman", "Atom", "Doctor Fate"],
+        writers: ["Gardner Fox"],
+        artists: ["Everett E. Hibbard"],
+        description: "The first superhero team in comics history assembles in All Star Comics #3.",
+        wikipediaTitle: "Justice_Society_of_America",
+        shortDescription: "First superhero team ever created",
+        isPublicDomain: false
+    },
+    {
+        year: 1954,
+        title: "Comics Code Authority established",
+        category: "publication",
+        era: "golden",
+        characters: [],
+        writers: [],
+        artists: [],
+        description: "Industry self-censorship begins after Fredric Wertham's 'Seduction of the Innocent,' dramatically changing comic content.",
+        wikipediaTitle: "Comics_Code_Authority",
+        shortDescription: "Comic book censorship begins",
+        isPublicDomain: false
+    },
+
+    // SILVER AGE (1956-1970)
     {
         year: 1956,
         title: "The Silver Age begins with Showcase #4",
         category: "publication",
+        era: "silver",
+        characters: ["Flash", "Barry Allen"],
+        writers: ["Robert Kanigher"],
+        artists: ["Carmine Infantino"],
+        storyArc: "Flash of Two Worlds",
         description: "Barry Allen debuts as the new Flash, marking the beginning of the Silver Age of Comics and revival of superhero comics.",
         wikipediaTitle: "Flash_(Barry_Allen)",
-        shortDescription: "Silver Age of Comics begins with new Flash"
+        shortDescription: "Silver Age of Comics begins with new Flash",
+        isPublicDomain: false
+    },
+    {
+        year: 1959,
+        title: "Green Lantern (Hal Jordan) debuts in Showcase #22",
+        category: "character",
+        era: "silver",
+        characters: ["Green Lantern", "Hal Jordan"],
+        writers: ["John Broome"],
+        artists: ["Gil Kane"],
+        description: "Test pilot Hal Jordan becomes the first human member of the intergalactic Green Lantern Corps.",
+        wikipediaTitle: "Hal_Jordan",
+        shortDescription: "Introduction of Hal Jordan as Green Lantern",
+        isPublicDomain: false
     },
     {
         year: 1960,
         title: "Justice League of America debuts",
         category: "character",
+        era: "silver",
+        characters: ["Superman", "Batman", "Wonder Woman", "Flash", "Green Lantern", "Aquaman", "Martian Manhunter"],
+        writers: ["Gardner Fox"],
+        artists: ["Mike Sekowsky"],
         description: "The premier superhero team of DC Comics is formed in The Brave and the Bold #28, uniting the greatest heroes.",
         wikipediaTitle: "Justice_League",
-        shortDescription: "Formation of the Justice League"
+        shortDescription: "Formation of the Justice League",
+        isPublicDomain: false
     },
+    {
+        year: 1961,
+        title: "Flash of Two Worlds",
+        category: "publication",
+        era: "silver",
+        characters: ["Flash", "Barry Allen", "Jay Garrick"],
+        writers: ["Gardner Fox"],
+        artists: ["Carmine Infantino"],
+        storyArc: "Flash of Two Worlds",
+        description: "Flash #123 introduces the multiverse concept, allowing Golden Age and Silver Age heroes to coexist.",
+        wikipediaTitle: "Flash_of_Two_Worlds",
+        shortDescription: "Multiverse concept introduced to comics",
+        isPublicDomain: false
+    },
+    {
+        year: 1964,
+        title: "Teen Titans debut in The Brave and the Bold #54",
+        category: "character",
+        era: "silver",
+        characters: ["Robin", "Kid Flash", "Aqualad"],
+        writers: ["Bob Haney"],
+        artists: ["Bruno Premiani"],
+        description: "Sidekicks unite to form their own team, eventually becoming one of DC's most popular franchises.",
+        wikipediaTitle: "Teen_Titans",
+        shortDescription: "Young heroes form their own team",
+        isPublicDomain: false
+    },
+    {
+        year: 1966,
+        title: "Batman TV series premieres",
+        category: "media",
+        era: "silver",
+        characters: ["Batman", "Robin"],
+        writers: ["Lorenzo Semple Jr."],
+        artists: [],
+        description: "Adam West stars in the campy, colorful series that becomes a cultural phenomenon and introduces Batman to millions.",
+        wikipediaTitle: "Batman_(TV_series)",
+        shortDescription: "Adam West's Batman TV show debuts",
+        isPublicDomain: false
+    },
+
+    // BRONZE AGE (1970-1985)
     {
         year: 1970,
         title: "Green Lantern/Green Arrow series addresses social issues",
         category: "publication",
-        description: "Dennis O'Neil and Neal Adams create groundbreaking stories tackling racism, drug abuse, and political corruption.",
+        era: "bronze",
+        characters: ["Green Lantern", "Green Arrow"],
+        writers: ["Dennis O'Neil"],
+        artists: ["Neal Adams"],
+        storyArc: "Hard-Traveling Heroes",
+        description: "Dennis O'Neil and Neal Adams create groundbreaking stories tackling racism, drug abuse, and political corruption, making comics socially relevant.",
         wikipediaTitle: "Green_Lantern/Green_Arrow",
-        shortDescription: "Comics begin addressing real-world social issues"
+        shortDescription: "Comics begin addressing real-world social issues",
+        isPublicDomain: false
     },
     {
-        year: 1985,
-        title: "Crisis on Infinite Earths published",
+        year: 1971,
+        title: "Swamp Thing debuts in House of Secrets #92",
+        category: "character",
+        era: "bronze",
+        characters: ["Swamp Thing", "Alec Holland"],
+        writers: ["Len Wein"],
+        artists: ["Bernie Wrightson"],
+        description: "A tragic scientist becomes a plant elemental, blending horror with superheroes in groundbreaking ways.",
+        wikipediaTitle: "Swamp_Thing",
+        shortDescription: "Introduction of Swamp Thing",
+        isPublicDomain: false
+    },
+    {
+        year: 1972,
+        title: "Jack Kirby's Fourth World Saga",
         category: "publication",
-        description: "This landmark 12-issue series streamlines DC continuity and remains one of the most influential comic book events ever.",
+        era: "bronze",
+        characters: ["Darkseid", "Orion", "Mister Miracle", "Big Barda"],
+        writers: ["Jack Kirby"],
+        artists: ["Jack Kirby"],
+        storyArc: "Fourth World",
+        description: "Jack Kirby creates an epic mythology with New Gods, Forever People, and Mister Miracle, introducing Darkseid.",
+        wikipediaTitle: "Fourth_World_(comics)",
+        shortDescription: "Kirby's cosmic mythology debut",
+        isPublicDomain: false
+    },
+    {
+        year: 1973,
+        title: "The Joker's Five-Way Revenge",
+        category: "publication",
+        era: "bronze",
+        characters: ["Batman", "Joker"],
+        writers: ["Dennis O'Neil"],
+        artists: ["Neal Adams"],
+        description: "O'Neil and Adams return the Joker to his homicidal roots after years of campiness.",
+        wikipediaTitle: "Joker_(character)",
+        shortDescription: "Joker returns as a serious threat",
+        isPublicDomain: false
+    },
+    {
+        year: 1975,
+        title: "The Joker gets his own series",
+        category: "publication",
+        era: "bronze",
+        characters: ["Joker"],
+        writers: ["Dennis O'Neil"],
+        artists: ["Irv Novick"],
+        description: "First ongoing series starring a villain, though it only lasted 9 issues due to Comics Code restrictions.",
+        wikipediaTitle: "Joker_(comic_book)",
+        shortDescription: "First villain-led ongoing series",
+        isPublicDomain: false
+    },
+    {
+        year: 1978,
+        title: "Superman: The Movie released",
+        category: "media",
+        era: "bronze",
+        characters: ["Superman"],
+        writers: ["Mario Puzo", "Tom Mankiewicz"],
+        artists: [],
+        description: "Christopher Reeve stars in Richard Donner's film, proving superhero movies can be blockbusters. 'You'll believe a man can fly.'",
+        wikipediaTitle: "Superman_(1978_film)",
+        shortDescription: "Christopher Reeve's iconic Superman debut",
+        isPublicDomain: false
+    },
+    {
+        year: 1980,
+        title: "The New Teen Titans #1 launches",
+        category: "publication",
+        era: "bronze",
+        characters: ["Robin", "Starfire", "Cyborg", "Raven", "Beast Boy"],
+        writers: ["Marv Wolfman"],
+        artists: ["George Pérez"],
+        description: "Marv Wolfman and George Pérez revitalize the team, creating one of DC's best-selling titles of the 1980s.",
+        wikipediaTitle: "The_New_Teen_Titans",
+        shortDescription: "Teen Titans reinvented for new generation",
+        isPublicDomain: false
+    },
+    {
+        year: 1983,
+        title: "Jason Todd becomes Robin",
+        category: "character",
+        era: "bronze",
+        characters: ["Robin", "Jason Todd", "Batman"],
+        writers: ["Gerry Conway"],
+        artists: ["Don Newton"],
+        description: "After Dick Grayson becomes Nightwing, Jason Todd takes up the Robin mantle.",
+        wikipediaTitle: "Jason_Todd",
+        shortDescription: "Second Robin introduced",
+        isPublicDomain: false
+    },
+    {
+        year: 1984,
+        title: "Dick Grayson becomes Nightwing",
+        category: "character",
+        era: "bronze",
+        characters: ["Nightwing", "Dick Grayson"],
+        writers: ["Marv Wolfman"],
+        artists: ["George Pérez"],
+        description: "Robin grows up and adopts a new identity inspired by Superman's stories of Kryptonian heroes.",
+        wikipediaTitle: "Nightwing",
+        shortDescription: "Robin graduates to Nightwing",
+        isPublicDomain: false
+    },
+
+    // DARK AGE (1985-1992)
+    {
+        year: 1985,
+        title: "Crisis on Infinite Earths",
+        category: "publication",
+        era: "dark",
+        characters: ["Superman", "Batman", "Wonder Woman", "Flash", "Supergirl"],
+        writers: ["Marv Wolfman"],
+        artists: ["George Pérez"],
+        storyArc: "Crisis on Infinite Earths",
+        description: "This landmark 12-issue series streamlines DC continuity and remains one of the most influential comic book events ever. The multiverse is destroyed and recreated.",
         wikipediaTitle: "Crisis_on_Infinite_Earths",
-        shortDescription: "Major crossover event reshaping DC Universe"
+        shortDescription: "Major crossover event reshaping DC Universe",
+        isPublicDomain: false
     },
     {
         year: 1986,
-        title: "The Dark Knight Returns published",
+        title: "The Dark Knight Returns",
         category: "publication",
-        description: "Frank Miller's dark, mature take on Batman revolutionizes the character and influences all future adaptations.",
+        era: "dark",
+        characters: ["Batman", "Superman", "Robin", "Joker"],
+        writers: ["Frank Miller"],
+        artists: ["Frank Miller"],
+        storyArc: "The Dark Knight Returns",
+        description: "Frank Miller's dark, mature take on an aging Batman revolutionizes the character and influences all future adaptations. A masterpiece of the medium.",
         wikipediaTitle: "The_Dark_Knight_Returns",
-        shortDescription: "Frank Miller's groundbreaking Batman story"
+        shortDescription: "Frank Miller's groundbreaking Batman story",
+        isPublicDomain: false
     },
     {
         year: 1986,
         title: "Watchmen begins publication",
         category: "publication",
-        description: "Alan Moore and Dave Gibbons create what many consider the greatest graphic novel ever, deconstructing superhero tropes.",
+        era: "dark",
+        characters: ["Rorschach", "Dr. Manhattan", "Nite Owl", "Silk Spectre"],
+        writers: ["Alan Moore"],
+        artists: ["Dave Gibbons"],
+        storyArc: "Watchmen",
+        description: "Alan Moore and Dave Gibbons create what many consider the greatest graphic novel ever, deconstructing superhero tropes and exploring moral complexity.",
         wikipediaTitle: "Watchmen",
-        shortDescription: "Alan Moore's deconstruction of superhero genre"
+        shortDescription: "Alan Moore's deconstruction of superhero genre",
+        isPublicDomain: false
+    },
+    {
+        year: 1986,
+        title: "Batman: Year One",
+        category: "publication",
+        era: "dark",
+        characters: ["Batman", "James Gordon", "Catwoman"],
+        writers: ["Frank Miller"],
+        artists: ["David Mazzucchelli"],
+        storyArc: "Year One",
+        description: "Frank Miller and David Mazzucchelli redefine Batman's origin in a gritty, realistic crime story.",
+        wikipediaTitle: "Batman:_Year_One",
+        shortDescription: "Definitive Batman origin story",
+        isPublicDomain: false
+    },
+    {
+        year: 1987,
+        title: "John Byrne's Man of Steel reboot",
+        category: "publication",
+        era: "dark",
+        characters: ["Superman"],
+        writers: ["John Byrne"],
+        artists: ["John Byrne"],
+        description: "Post-Crisis Superman origin is modernized, making Clark Kent the 'real' identity and Superman the mask.",
+        wikipediaTitle: "The_Man_of_Steel_(comics)",
+        shortDescription: "Superman reinvented for modern era",
+        isPublicDomain: false
+    },
+    {
+        year: 1988,
+        title: "A Death in the Family - Jason Todd dies",
+        category: "publication",
+        era: "dark",
+        characters: ["Batman", "Robin", "Joker"],
+        writers: ["Jim Starlin"],
+        artists: ["Jim Aparo"],
+        storyArc: "A Death in the Family",
+        description: "Readers vote via phone to kill Jason Todd, with the Joker beating Robin to death in a shocking storyline.",
+        wikipediaTitle: "Batman:_A_Death_in_the_Family",
+        shortDescription: "Robin killed by the Joker",
+        isPublicDomain: false
+    },
+    {
+        year: 1988,
+        title: "The Killing Joke published",
+        category: "publication",
+        era: "dark",
+        characters: ["Batman", "Joker", "Barbara Gordon"],
+        writers: ["Alan Moore"],
+        artists: ["Brian Bolland"],
+        description: "Alan Moore and Brian Bolland create the definitive Joker story, exploring his possible origin and his relationship with Batman.",
+        wikipediaTitle: "Batman:_The_Killing_Joke",
+        shortDescription: "Definitive Joker origin story",
+        isPublicDomain: false
     },
     {
         year: 1989,
-        title: "Batman film directed by Tim Burton released",
+        title: "Batman film directed by Tim Burton",
         category: "media",
-        description: "Michael Keaton stars as Batman in this dark, gothic interpretation that proves superhero films can be serious cinema.",
+        era: "dark",
+        characters: ["Batman", "Joker"],
+        writers: ["Sam Hamm"],
+        artists: [],
+        description: "Michael Keaton stars as Batman with Jack Nicholson as Joker in this dark, gothic interpretation that proves superhero films can be serious cinema.",
         wikipediaTitle: "Batman_(1989_film)",
-        shortDescription: "Tim Burton's Batman launches modern superhero films"
+        shortDescription: "Tim Burton's Batman launches modern superhero films",
+        isPublicDomain: false
+    },
+    {
+        year: 1989,
+        title: "Arkham Asylum: A Serious House on Serious Earth",
+        category: "publication",
+        era: "dark",
+        characters: ["Batman", "Joker", "Two-Face", "Mad Hatter"],
+        writers: ["Grant Morrison"],
+        artists: ["Dave McKean"],
+        description: "Grant Morrison and Dave McKean create a psychological horror masterpiece set in Arkham Asylum.",
+        wikipediaTitle: "Arkham_Asylum:_A_Serious_House_on_Serious_Earth",
+        shortDescription: "Psychological Batman horror story",
+        isPublicDomain: false
+    },
+    {
+        year: 1989,
+        title: "Sandman #1 debuts",
+        category: "publication",
+        era: "dark",
+        characters: ["Dream", "Death"],
+        writers: ["Neil Gaiman"],
+        artists: ["Sam Kieth"],
+        storyArc: "Preludes and Nocturnes",
+        description: "Neil Gaiman begins his legendary run, creating a literary fantasy series that transcends the superhero genre.",
+        wikipediaTitle: "The_Sandman_(comic_book)",
+        shortDescription: "Neil Gaiman's Sandman begins",
+        isPublicDomain: false
     },
     {
         year: 1992,
-        title: "The Death of Superman storyline",
+        title: "The Death of Superman",
         category: "publication",
+        era: "dark",
+        characters: ["Superman", "Doomsday", "Lois Lane"],
+        writers: ["Dan Jurgens", "Jerry Ordway"],
+        artists: ["Dan Jurgens"],
+        storyArc: "The Death of Superman",
         description: "Superman dies fighting Doomsday in one of the best-selling comic book storylines, creating mainstream media attention.",
         wikipediaTitle: "The_Death_of_Superman",
-        shortDescription: "Superman's death becomes cultural phenomenon"
+        shortDescription: "Superman's death becomes cultural phenomenon",
+        isPublicDomain: false
+    },
+
+    // MODERN AGE (1992-2011)
+    {
+        year: 1992,
+        title: "Batman: The Animated Series premieres",
+        category: "media",
+        era: "modern",
+        characters: ["Batman", "Joker"],
+        writers: ["Paul Dini", "Bruce Timm"],
+        artists: [],
+        description: "Bruce Timm and Paul Dini create the definitive animated Batman, with Kevin Conroy and Mark Hamill as Batman and Joker.",
+        wikipediaTitle: "Batman:_The_Animated_Series",
+        shortDescription: "Acclaimed animated Batman series debuts",
+        isPublicDomain: false
+    },
+    {
+        year: 1993,
+        title: "The Return of Superman",
+        category: "publication",
+        era: "modern",
+        characters: ["Superman", "Steel", "Superboy", "Cyborg Superman"],
+        writers: ["Dan Jurgens", "Karl Kesel"],
+        artists: ["Dan Jurgens"],
+        storyArc: "Reign of the Supermen",
+        description: "Four replacement Supermen emerge after Clark's death, leading to his eventual return.",
+        wikipediaTitle: "Reign_of_the_Supermen",
+        shortDescription: "Superman returns from death",
+        isPublicDomain: false
+    },
+    {
+        year: 1993,
+        title: "Knightfall - Bane breaks Batman",
+        category: "publication",
+        era: "modern",
+        characters: ["Batman", "Bane", "Azrael"],
+        writers: ["Doug Moench", "Chuck Dixon"],
+        artists: ["Jim Aparo"],
+        storyArc: "Knightfall",
+        description: "Bane breaks Batman's back, leading to Jean-Paul Valley becoming a violent replacement Batman.",
+        wikipediaTitle: "Batman:_Knightfall",
+        shortDescription: "Bane breaks Batman's back",
+        isPublicDomain: false
+    },
+    {
+        year: 1994,
+        title: "Zero Hour: Crisis in Time",
+        category: "publication",
+        era: "modern",
+        characters: ["Hal Jordan", "Parallax"],
+        writers: ["Dan Jurgens"],
+        artists: ["Dan Jurgens"],
+        storyArc: "Zero Hour",
+        description: "Hal Jordan, now the villain Parallax, attempts to recreate the universe. Continuity is streamlined again.",
+        wikipediaTitle: "Zero_Hour:_Crisis_in_Time",
+        shortDescription: "Time-travel crisis event",
+        isPublicDomain: false
     },
     {
         year: 1996,
-        title: "Kingdom Come published",
+        title: "Kingdom Come",
         category: "publication",
-        description: "Mark Waid and Alex Ross create a masterpiece exploring the future of DC heroes and generational conflict.",
+        era: "modern",
+        characters: ["Superman", "Wonder Woman", "Batman"],
+        writers: ["Mark Waid"],
+        artists: ["Alex Ross"],
+        storyArc: "Kingdom Come",
+        description: "Mark Waid and Alex Ross create a painted masterpiece exploring the future of DC heroes and generational conflict.",
         wikipediaTitle: "Kingdom_Come_(comics)",
-        shortDescription: "Painted epic examining future of superheroes"
+        shortDescription: "Painted epic examining future of superheroes",
+        isPublicDomain: false
+    },
+    {
+        year: 1999,
+        title: "No Man's Land",
+        category: "publication",
+        era: "modern",
+        characters: ["Batman", "Oracle", "Nightwing"],
+        writers: ["Bob Gale", "Greg Rucka"],
+        artists: ["Alex Maleev"],
+        storyArc: "No Man's Land",
+        description: "After an earthquake, Gotham is abandoned by the government. Batman must restore order to a lawless city.",
+        wikipediaTitle: "Batman:_No_Man's_Land",
+        shortDescription: "Gotham becomes lawless wasteland",
+        isPublicDomain: false
+    },
+    {
+        year: 2000,
+        title: "JLA/Avengers crossover",
+        category: "publication",
+        era: "modern",
+        characters: ["Superman", "Batman", "Wonder Woman"],
+        writers: ["Kurt Busiek"],
+        artists: ["George Pérez"],
+        description: "After decades of waiting, DC and Marvel's premier teams finally meet in this epic crossover.",
+        wikipediaTitle: "JLA/Avengers",
+        shortDescription: "DC and Marvel crossover event",
+        isPublicDomain: false
+    },
+    {
+        year: 2004,
+        title: "Identity Crisis",
+        category: "publication",
+        era: "modern",
+        characters: ["Green Arrow", "The Atom", "Elongated Man"],
+        writers: ["Brad Meltzer"],
+        artists: ["Rags Morales"],
+        storyArc: "Identity Crisis",
+        description: "A murder mystery reveals dark secrets about the Justice League's past, including mind-wiping villains.",
+        wikipediaTitle: "Identity_Crisis_(DC_Comics)",
+        shortDescription: "Controversial murder mystery",
+        isPublicDomain: false
     },
     {
         year: 2005,
-        title: "Batman Begins launches Dark Knight Trilogy",
+        title: "Infinite Crisis",
+        category: "publication",
+        era: "modern",
+        characters: ["Superman", "Batman", "Wonder Woman", "Superboy-Prime"],
+        writers: ["Geoff Johns"],
+        artists: ["Phil Jimenez"],
+        storyArc: "Infinite Crisis",
+        description: "The multiverse returns as characters from the original Crisis return to 'fix' the DC Universe.",
+        wikipediaTitle: "Infinite_Crisis",
+        shortDescription: "Multiverse returns in major crisis",
+        isPublicDomain: false
+    },
+    {
+        year: 2005,
+        title: "Batman Begins",
         category: "media",
-        description: "Christopher Nolan begins his critically acclaimed trilogy, redefining Batman for a new generation.",
+        era: "modern",
+        characters: ["Batman"],
+        writers: ["Christopher Nolan", "David S. Goyer"],
+        artists: [],
+        description: "Christopher Nolan begins his critically acclaimed trilogy, redefining Batman for a new generation with realism.",
         wikipediaTitle: "Batman_Begins",
-        shortDescription: "Christopher Nolan's realistic Batman interpretation"
+        shortDescription: "Christopher Nolan's realistic Batman",
+        isPublicDomain: false
+    },
+    {
+        year: 2006,
+        title: "52",
+        category: "publication",
+        era: "modern",
+        characters: ["Booster Gold", "The Question", "Black Adam"],
+        writers: ["Geoff Johns", "Grant Morrison", "Greg Rucka", "Mark Waid"],
+        artists: ["Keith Giffen"],
+        storyArc: "52",
+        description: "DC's first real-time weekly series follows the missing year after Infinite Crisis. A creative triumph.",
+        wikipediaTitle: "52_(comics)",
+        shortDescription: "Real-time weekly comic series",
+        isPublicDomain: false
     },
     {
         year: 2008,
-        title: "The Dark Knight released",
+        title: "The Dark Knight",
         category: "media",
-        description: "Heath Ledger's Joker performance in Nolan's sequel becomes legendary, film grosses over $1 billion.",
+        era: "modern",
+        characters: ["Batman", "Joker"],
+        writers: ["Christopher Nolan", "Jonathan Nolan"],
+        artists: [],
+        description: "Heath Ledger's legendary Joker performance in Nolan's sequel becomes iconic. Film grosses over $1 billion.",
         wikipediaTitle: "The_Dark_Knight",
-        shortDescription: "Heath Ledger's iconic Joker performance"
+        shortDescription: "Heath Ledger's iconic Joker",
+        isPublicDomain: false
+    },
+    {
+        year: 2009,
+        title: "Blackest Night",
+        category: "publication",
+        era: "modern",
+        characters: ["Green Lantern", "Flash", "Black Lantern"],
+        writers: ["Geoff Johns"],
+        artists: ["Ivan Reis"],
+        storyArc: "Blackest Night",
+        description: "Dead heroes and villains rise as Black Lanterns in Geoff Johns' epic Green Lantern event.",
+        wikipediaTitle: "Blackest_Night",
+        shortDescription: "Zombie superhero apocalypse",
+        isPublicDomain: false
     },
     {
         year: 2011,
-        title: "The New 52 initiative launches",
+        title: "Flashpoint",
         category: "publication",
+        era: "modern",
+        characters: ["Flash", "Batman", "Wonder Woman"],
+        writers: ["Geoff Johns"],
+        artists: ["Andy Kubert"],
+        storyArc: "Flashpoint",
+        description: "Barry Allen's time travel creates an alternate reality where Bruce Wayne died instead of his parents.",
+        wikipediaTitle: "Flashpoint_(comics)",
+        shortDescription: "Time travel creates alternate reality",
+        isPublicDomain: false
+    },
+
+    // CONTEMPORARY AGE (2011-Present)
+    {
+        year: 2011,
+        title: "The New 52",
+        category: "publication",
+        era: "contemporary",
+        characters: [],
+        writers: ["Various"],
+        artists: ["Various"],
         description: "DC reboots entire line with 52 #1 issues, modernizing characters for new readers in digital and print.",
         wikipediaTitle: "The_New_52",
-        shortDescription: "Complete reboot of DC Comics continuity"
+        shortDescription: "Complete reboot of DC continuity",
+        isPublicDomain: false
+    },
+    {
+        year: 2011,
+        title: "Court of Owls",
+        category: "publication",
+        era: "contemporary",
+        characters: ["Batman", "Nightwing"],
+        writers: ["Scott Snyder"],
+        artists: ["Greg Capullo"],
+        storyArc: "Court of Owls",
+        description: "Scott Snyder and Greg Capullo introduce a new Gotham conspiracy that's been hidden for centuries.",
+        wikipediaTitle: "Batman:_The_Court_of_Owls",
+        shortDescription: "New Batman mythology introduced",
+        isPublicDomain: false
     },
     {
         year: 2013,
-        title: "Man of Steel film released",
+        title: "Man of Steel",
         category: "media",
+        era: "contemporary",
+        characters: ["Superman"],
+        writers: ["David S. Goyer"],
+        artists: [],
         description: "Zack Snyder's Superman reboot launches the DC Extended Universe film franchise.",
         wikipediaTitle: "Man_of_Steel_(film)",
-        shortDescription: "Launch of DC Extended Universe"
+        shortDescription: "DCEU launches",
+        isPublicDomain: false
     },
     {
         year: 2016,
-        title: "DC Rebirth initiative begins",
+        title: "DC Rebirth",
         category: "publication",
+        era: "contemporary",
+        characters: ["Wally West", "Batman", "Superman"],
+        writers: ["Geoff Johns"],
+        artists: ["Various"],
         description: "DC partially reverses New 52 changes, restoring legacy and history while keeping modernization.",
         wikipediaTitle: "DC_Rebirth",
-        shortDescription: "Restoration of DC Comics legacy and continuity"
+        shortDescription: "Restoration of DC legacy",
+        isPublicDomain: false
     },
     {
         year: 2017,
-        title: "Wonder Woman film released",
+        title: "Dark Nights: Metal",
+        category: "publication",
+        era: "contemporary",
+        characters: ["Batman", "Superman", "Wonder Woman", "The Batman Who Laughs"],
+        writers: ["Scott Snyder"],
+        artists: ["Greg Capullo"],
+        storyArc: "Dark Nights: Metal",
+        description: "Evil Batmen from the Dark Multiverse invade, introducing the Batman Who Laughs.",
+        wikipediaTitle: "Dark_Nights:_Metal",
+        shortDescription: "Dark Multiverse invasion",
+        isPublicDomain: false
+    },
+    {
+        year: 2017,
+        title: "Wonder Woman film",
         category: "media",
+        era: "contemporary",
+        characters: ["Wonder Woman"],
+        writers: ["Allan Heinberg"],
+        artists: [],
         description: "Gal Gadot stars in the first female-led superhero film of modern era, directed by Patty Jenkins.",
         wikipediaTitle: "Wonder_Woman_(2017_film)",
-        shortDescription: "First modern female-led superhero blockbuster"
+        shortDescription: "First modern female-led superhero blockbuster",
+        isPublicDomain: false
     },
     {
         year: 2019,
-        title: "Joker film wins Golden Lion and grosses $1 billion",
+        title: "Joker",
         category: "media",
+        era: "contemporary",
+        characters: ["Joker"],
+        writers: ["Todd Phillips", "Scott Silver"],
+        artists: [],
         description: "Joaquin Phoenix's portrayal earns critical acclaim and Oscar, proving comic book films can be high art.",
         wikipediaTitle: "Joker_(2019_film)",
-        shortDescription: "Character study earns awards and cultural impact"
+        shortDescription: "Character study earns awards",
+        isPublicDomain: false
+    },
+    {
+        year: 2020,
+        title: "Death Metal",
+        category: "publication",
+        era: "contemporary",
+        characters: ["Wonder Woman", "Batman", "Superman"],
+        writers: ["Scott Snyder"],
+        artists: ["Greg Capullo"],
+        storyArc: "Dark Nights: Death Metal",
+        description: "The sequel to Metal sees Wonder Woman leading heroes against the Batman Who Laughs.",
+        wikipediaTitle: "Dark_Nights:_Death_Metal",
+        shortDescription: "Metal sequel event",
+        isPublicDomain: false
     },
     {
         year: 2021,
-        title: "Zack Snyder's Justice League released",
+        title: "Zack Snyder's Justice League",
         category: "media",
-        description: "Fan campaign results in release of director's 4-hour vision, becoming cultural phenomenon on HBO Max.",
+        era: "contemporary",
+        characters: ["Superman", "Batman", "Wonder Woman", "Flash", "Aquaman", "Cyborg"],
+        writers: ["Zack Snyder"],
+        artists: [],
+        description: "Fan campaign results in release of director's 4-hour vision, becoming cultural phenomenon.",
         wikipediaTitle: "Zack_Snyder's_Justice_League",
-        shortDescription: "Director's cut released after fan campaign"
+        shortDescription: "Director's cut after fan campaign",
+        isPublicDomain: false
+    },
+    {
+        year: 2021,
+        title: "Infinite Frontier",
+        category: "publication",
+        era: "contemporary",
+        characters: ["Batman", "Superman", "Wonder Woman"],
+        writers: ["Joshua Williamson"],
+        artists: ["Various"],
+        description: "DC restores the infinite multiverse, ending the linear timeline approach.",
+        wikipediaTitle: "Infinite_Frontier",
+        shortDescription: "Multiverse fully restored",
+        isPublicDomain: false
     },
     {
         year: 2022,
-        title: "The Batman released",
+        title: "The Batman",
         category: "media",
+        era: "contemporary",
+        characters: ["Batman", "Riddler", "Catwoman"],
+        writers: ["Matt Reeves", "Peter Craig"],
+        artists: [],
         description: "Matt Reeves directs Robert Pattinson in noir-influenced detective story, earning critical praise.",
         wikipediaTitle: "The_Batman_(film)",
-        shortDescription: "Detective noir interpretation of Batman"
+        shortDescription: "Detective noir Batman",
+        isPublicDomain: false
     },
     {
         year: 2023,
-        title: "Blue Beetle film released",
+        title: "Dawn of DC",
+        category: "publication",
+        era: "contemporary",
+        characters: [],
+        writers: ["Various"],
+        artists: ["Various"],
+        description: "DC's latest initiative focuses on accessible storytelling and honoring legacy while moving forward.",
+        wikipediaTitle: "DC_Comics",
+        shortDescription: "Latest DC publishing initiative",
+        isPublicDomain: false
+    },
+    {
+        year: 2023,
+        title: "Blue Beetle film",
         category: "media",
+        era: "contemporary",
+        characters: ["Blue Beetle", "Jaime Reyes"],
+        writers: ["Gareth Dunnet-Alcocer"],
+        artists: [],
         description: "First Latino-led superhero film from DC, introducing Jaime Reyes to theatrical audiences.",
         wikipediaTitle: "Blue_Beetle_(film)",
-        shortDescription: "First Latino-led DC superhero film"
+        shortDescription: "First Latino-led DC film",
+        isPublicDomain: false
     }
 ];
 
+// Era definitions for filtering and display
+const eras = {
+    golden: {
+        name: "Golden Age",
+        years: "1938-1956",
+        color: "#FFD700",
+        description: "Birth of the superhero genre"
+    },
+    silver: {
+        name: "Silver Age",
+        years: "1956-1970",
+        color: "#C0C0C0",
+        description: "Revival and modernization"
+    },
+    bronze: {
+        name: "Bronze Age",
+        years: "1970-1985",
+        color: "#CD7F32",
+        description: "Social relevance and realism"
+    },
+    dark: {
+        name: "Dark Age",
+        years: "1985-1992",
+        color: "#1a1a2e",
+        description: "Mature themes and deconstruction"
+    },
+    modern: {
+        name: "Modern Age",
+        years: "1992-2011",
+        color: "#0066ff",
+        description: "Multimedia expansion"
+    },
+    contemporary: {
+        name: "Contemporary Age",
+        years: "2011-Present",
+        color: "#ff0039",
+        description: "Digital era and cinematic universe"
+    }
+};
+
+// Extract unique values for filters
+const filterOptions = {
+    characters: [...new Set(timelineEvents.flatMap(e => e.characters))].sort(),
+    writers: [...new Set(timelineEvents.flatMap(e => e.writers))].filter(w => w).sort(),
+    artists: [...new Set(timelineEvents.flatMap(e => e.artists))].filter(a => a).sort(),
+    storyArcs: [...new Set(timelineEvents.map(e => e.storyArc))].filter(s => s).sort(),
+    eras: Object.keys(eras)
+};
+
 // Export for use in app.js
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = timelineEvents;
+    module.exports = { timelineEvents, eras, filterOptions };
 }
