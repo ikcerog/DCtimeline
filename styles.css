@@ -26,8 +26,10 @@ body {
     line-height: 1.6;
     min-height: 100vh;
     overflow-x: hidden;
+    position: relative;
 }
 
+/* DC Comics Background Image */
 body::before {
     content: '';
     position: fixed;
@@ -35,9 +37,38 @@ body::before {
     left: 0;
     right: 0;
     bottom: 0;
+    background-image: url('dc-bg1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(8px) brightness(0.3);
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 0;
+    animation: subtleZoom 30s ease-in-out infinite alternate;
+}
+
+@keyframes subtleZoom {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.05);
+    }
+}
+
+/* Gradient Overlays */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background:
-        radial-gradient(circle at 20% 50%, rgba(0, 102, 255, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(255, 0, 57, 0.1) 0%, transparent 50%);
+        radial-gradient(circle at 20% 50%, rgba(0, 102, 255, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 0, 57, 0.15) 0%, transparent 50%),
+        linear-gradient(180deg, rgba(10, 14, 39, 0.7) 0%, rgba(10, 14, 39, 0.5) 50%, rgba(10, 14, 39, 0.7) 100%);
     pointer-events: none;
     z-index: 0;
 }
