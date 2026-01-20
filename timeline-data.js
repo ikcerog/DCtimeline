@@ -28,7 +28,8 @@ const timelineEvents = [
         description: "National Allied Publications releases its first comic book, featuring original content rather than newspaper strip reprints.",
         wikipediaTitle: "New_Fun",
         shortDescription: "DC's very first comic book publication",
-        isPublicDomain: true
+        isPublicDomain: true,
+        publicDomainImageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/New_Fun_1.jpg/400px-New_Fun_1.jpg"
     },
     {
         year: 1937,
@@ -41,7 +42,8 @@ const timelineEvents = [
         description: "The title that would give DC Comics its name launches, focusing on detective and mystery stories.",
         wikipediaTitle: "Detective_Comics",
         shortDescription: "Launch of the iconic Detective Comics series",
-        isPublicDomain: true
+        isPublicDomain: true,
+        publicDomainImageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Detective_Comics_1.jpg/400px-Detective_Comics_1.jpg"
     },
     {
         year: 1938,
@@ -348,7 +350,8 @@ const timelineEvents = [
         description: "Christopher Reeve stars in Richard Donner's film, proving superhero movies can be blockbusters. 'You'll believe a man can fly.'",
         wikipediaTitle: "Superman_(1978_film)",
         shortDescription: "Christopher Reeve's iconic Superman debut",
-        isPublicDomain: false
+        isPublicDomain: false,
+        youtubeUrl: "https://www.youtube.com/watch?v=Q1GIu_oides"
     },
     {
         year: 1980,
@@ -498,7 +501,8 @@ const timelineEvents = [
         description: "Michael Keaton stars as Batman with Jack Nicholson as Joker in this dark, gothic interpretation that proves superhero films can be serious cinema.",
         wikipediaTitle: "Batman_(1989_film)",
         shortDescription: "Tim Burton's Batman launches modern superhero films",
-        isPublicDomain: false
+        isPublicDomain: false,
+        youtubeUrl: "https://www.youtube.com/watch?v=dgC9Q6vHiL0"
     },
     {
         year: 1989,
@@ -678,7 +682,8 @@ const timelineEvents = [
         description: "Christopher Nolan begins his critically acclaimed trilogy, redefining Batman for a new generation with realism.",
         wikipediaTitle: "Batman_Begins",
         shortDescription: "Christopher Nolan's realistic Batman",
-        isPublicDomain: false
+        isPublicDomain: false,
+        youtubeUrl: "https://www.youtube.com/watch?v=neY2xVmOfUM"
     },
     {
         year: 2006,
@@ -705,7 +710,8 @@ const timelineEvents = [
         description: "Heath Ledger's legendary Joker performance in Nolan's sequel becomes iconic. Film grosses over $1 billion.",
         wikipediaTitle: "The_Dark_Knight",
         shortDescription: "Heath Ledger's iconic Joker",
-        isPublicDomain: false
+        isPublicDomain: false,
+        youtubeUrl: "https://www.youtube.com/watch?v=EXeTwQWrcwY"
     },
     {
         year: 2009,
@@ -775,7 +781,8 @@ const timelineEvents = [
         description: "Zack Snyder's Superman reboot launches the DC Extended Universe film franchise.",
         wikipediaTitle: "Man_of_Steel_(film)",
         shortDescription: "DCEU launches",
-        isPublicDomain: false
+        isPublicDomain: false,
+        youtubeUrl: "https://www.youtube.com/watch?v=T6DJcgm3wNY"
     },
     {
         year: 2016,
@@ -815,7 +822,8 @@ const timelineEvents = [
         description: "Gal Gadot stars in the first female-led superhero film of modern era, directed by Patty Jenkins.",
         wikipediaTitle: "Wonder_Woman_(2017_film)",
         shortDescription: "First modern female-led superhero blockbuster",
-        isPublicDomain: false
+        isPublicDomain: false,
+        youtubeUrl: "https://www.youtube.com/watch?v=1Q8fG0TtVAY"
     },
     {
         year: 2019,
@@ -828,7 +836,8 @@ const timelineEvents = [
         description: "Joaquin Phoenix's portrayal earns critical acclaim and Oscar, proving comic book films can be high art.",
         wikipediaTitle: "Joker_(2019_film)",
         shortDescription: "Character study earns awards",
-        isPublicDomain: false
+        isPublicDomain: false,
+        youtubeUrl: "https://www.youtube.com/watch?v=zAGVQLHvwOY"
     },
     {
         year: 2020,
@@ -855,7 +864,8 @@ const timelineEvents = [
         description: "Fan campaign results in release of director's 4-hour vision, becoming cultural phenomenon.",
         wikipediaTitle: "Zack_Snyder's_Justice_League",
         shortDescription: "Director's cut after fan campaign",
-        isPublicDomain: false
+        isPublicDomain: false,
+        youtubeUrl: "https://www.youtube.com/watch?v=vM-Bja2Gy04"
     },
     {
         year: 2021,
@@ -881,7 +891,8 @@ const timelineEvents = [
         description: "Matt Reeves directs Robert Pattinson in noir-influenced detective story, earning critical praise.",
         wikipediaTitle: "The_Batman_(film)",
         shortDescription: "Detective noir Batman",
-        isPublicDomain: false
+        isPublicDomain: false,
+        youtubeUrl: "https://www.youtube.com/watch?v=mqqft2x_Aa4"
     },
     {
         year: 2023,

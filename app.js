@@ -474,7 +474,7 @@ class DCTimeline {
                                 <strong>Story Arc:</strong> ${event.storyArc}
                             </div>
                         ` : ''}
-                        <a href="#" class="event-link" onclick="event.preventDefault();">
+                        <a href="https://en.wikipedia.org/wiki/${event.wikipediaTitle}" target="_blank" rel="noopener noreferrer" class="event-link">
                             Learn more from Wikipedia →
                         </a>
                     </div>
@@ -524,6 +524,35 @@ class DCTimeline {
                 <div class="event-full-description">
                     <p>${event.description}</p>
                 </div>
+
+                ${event.publicDomainImageUrl ? `
+                    <div class="public-domain-image-section">
+                        <h3>Public Domain Image</h3>
+                        <img src="${event.publicDomainImageUrl}" alt="${event.title}" class="public-domain-image" loading="lazy">
+                        <p class="public-domain-notice">🔓 This image is in the public domain</p>
+                    </div>
+                ` : ''}
+
+                ${event.youtubeUrl ? `
+                    <div class="youtube-section">
+                        <h3>Official Video</h3>
+                        <div class="youtube-embed">
+                            <iframe
+                                width="100%"
+                                height="400"
+                                src="https://www.youtube.com/embed/${this.getYouTubeId(event.youtubeUrl)}"
+                                title="${event.title} - YouTube video"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen
+                                loading="lazy">
+                            </iframe>
+                        </div>
+                        <a href="${event.youtubeUrl}" target="_blank" rel="noopener noreferrer" class="youtube-link">
+                            Watch on YouTube →
+                        </a>
+                    </div>
+                ` : ''}
 
                 ${event.characters && event.characters.length > 0 ? `
                     <div class="metadata-section">
@@ -641,6 +670,13 @@ class DCTimeline {
             console.error('Wikipedia fetch error:', error);
             throw error;
         }
+    }
+
+    getYouTubeId(url) {
+        // Extract YouTube video ID from various URL formats
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+        const match = url.match(regExp);
+        return (match && match[2].length === 11) ? match[2] : null;
     }
 
     closeModal() {
