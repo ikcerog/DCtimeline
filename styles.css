@@ -33,10 +33,12 @@ body {
 body::before {
     content: '';
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    top: -10%;
+    left: -10%;
+    right: -10%;
+    bottom: -10%;
+    width: 120%;
+    height: 120%;
     background-image: url('dc-bg1.jpg');
     background-size: cover;
     background-position: center;
@@ -61,10 +63,12 @@ body::before {
 body::after {
     content: '';
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    top: -10%;
+    left: -10%;
+    right: -10%;
+    bottom: -10%;
+    width: 120%;
+    height: 120%;
     background:
         radial-gradient(circle at 20% 50%, rgba(0, 102, 255, 0.15) 0%, transparent 50%),
         radial-gradient(circle at 80% 80%, rgba(255, 0, 57, 0.15) 0%, transparent 50%),
